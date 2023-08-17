@@ -3,7 +3,7 @@ const fs = require("fs");
 // const shapes = require("./lib/shapes");
 const { lowercaseColours } = require("./lib/colours");
 // const hexcolours = require("./lib/hexcolours");
-const { Triangle, Square, Circle } = require("./lib/shapes");
+const { Triangle, Square, Circle,SquarewithBR } = require("./lib/shapes");
 
 function userInput() {
   inquirer
@@ -74,7 +74,7 @@ function userInput() {
         type: "list",
         name: "shape",
         message: "Please select the SHAPE of your logo:",
-        choices: ["Triangle", "Square", "Circle"],
+        choices: ["Triangle", "Square", "Circle", "Round cornered Square"],
         validate: (input) => input.length > 0,
       },
 
@@ -125,16 +125,9 @@ function userInput() {
   },
     ])
     .then((answer) => {
-      if (answer.text.length !== 3) {
-        console.log("Please enter 3 characters Only.");
-        userInput();
-      } else if (answer.shape.length === 0) {
-        console.log("Please select at least one shape.");
-        userInput();
-      } else {
         writeToFile("logo.svg", answer);
       }
-    });
+    );
 }
 
 function writeToFile(fileName, answer) {
@@ -155,6 +148,9 @@ function writeToFile(fileName, answer) {
   } else if (answer.shape === "Circle") {
     shapeInput = new Circle();
     svgData += `<circle cx="150" cy="115" r="80" fill="${answer.shapeColor}"/>`;
+  }else if(answer.shape==="Round cornered Square"){
+    shapeInput =new SquarewithBR() ;
+    svgData+=`<rect x="60" y="10" rx="10" ry="10" fill="${answer.shapeColor}"/>`;
   }
   //the text tag from html
   svgData += `<text x="150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="35" fill="${answer.textColor}">${answer.text}</text>`;
