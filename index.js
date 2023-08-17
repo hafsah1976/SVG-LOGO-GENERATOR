@@ -131,28 +131,37 @@ function userInput() {
 }
 
 function writeToFile(fileName, answer) {
-  //taking from user ,
-  let svgData = "";
-  let shapeInput = "";
+  // Taking from user
+  let svgData = ""; //from the user input, data is accumalated in this variable as a string
+  let shapeInput = ""; 
 
   svgData = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
   svgData += "<g>";
   svgData += `${answer.shape}`;
 
-  if (answer.shape === "Triangle") {
-    shapeInput = new Triangle();
-    svgData += `<polygon points="150, 18 244, 182 56, 182" fill="${answer.shapeColor}"/>`;
-  } else if (answer.shape === "Square") {
-    shapeInput = new Square();
-    svgData += `<rect x="70" y="37" width="160" height="160" fill="${answer.shapeColor}"/>`;
-  } else if (answer.shape === "Circle") {
-    shapeInput = new Circle();
-    svgData += `<circle cx="150" cy="115" r="80" fill="${answer.shapeColor}"/>`;
-  }else if(answer.shape==="Round cornered Square"){
-    shapeInput =new SquarewithBR() ;
-    svgData+=`<rect x="60" y="10" rx="10" ry="10" fill="${answer.shapeColor}"/>`;
+  switch (answer.shape) {
+    case "Triangle":
+      shapeInput = new Triangle();
+      svgData += `<polygon points="150, 18 244, 182 56, 182" fill="${answer.shapeColor}"/>`;
+      break;
+    case "Square":
+      shapeInput = new Square();
+      svgData += `<rect x="70" y="37" width="160" height="160" fill="${answer.shapeColor}"/>`;
+      break;
+    case "Circle":
+      shapeInput = new Circle();
+      svgData += `<circle cx="150" cy="115" r="80" fill="${answer.shapeColor}"/>`;
+      break;
+    case "Round cornered Square":
+      shapeInput = new SquarewithBR();
+      svgData += `<rect x="60" y="10" rx="10" ry="10" fill="${answer.shapeColor}"/>`;
+      break;
+    default:
+      // Handle unexpected shape input
+      break;
   }
-  //the text tag from html
+
+  // The text tag from HTML
   svgData += `<text x="150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="35" fill="${answer.textColor}">${answer.text}</text>`;
   svgData += "</g>";
   svgData += "</svg>";
