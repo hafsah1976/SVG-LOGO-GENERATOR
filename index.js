@@ -1,11 +1,9 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-// inquirer.registerPrompt("search-list", require("../dist"));
 // const shapes = require("./lib/shapes");
-const colours = require("./lib/colours");
-const hexcolours = require("./lib/hexcolours");
+const { lowercaseColours } = require("./lib/colours");
+// const hexcolours = require("./lib/hexcolours");
 const { Triangle, Square, Circle } = require("./lib/shapes");
-//  const { default: RawListPrompt } = require("inquirer/lib/prompts/rawlist");
 
 function userInput() {
   inquirer
@@ -13,30 +11,65 @@ function userInput() {
       {
         type: "input",
         name: "text",
-        message: "Please Enter 3 Characters of the logo you would like to create:",
-        validate: (input) => input.length <= 3,
+        message:
+          "Please Enter 3 Characters of the logo you would like to create:",
+        validate: (input) => 
+        {
+          if(input.length == 3){
+            return true;}
+            else if(input.length < 3){
+            console.log("\n Please enter at least 3 characters.");}
+          else {
+        return console.log("\n You cannot enter more than 3 characters.");
+          }
+        }
+      },
+      {
+        type: "list",
+        name: "textColorChoice",
+        message:"Please choose a color format:",
+        choices:['Color Names', 'Hexadecimal Codes']
       },
       {
         type: "input",
-        name: "textColor",
-        message: "Please enter 'Color Names' or 'Hex Codes' to see the list of colors, respectively:",
-        validate: (input) => {
-        //check the input is valid css color name
-        var COLOR =input;
-      COLOR=colours.includes(input.toLowerCase());
-        //  check the input to validate hexadecimal code
-     const HEXCODE = /^#[0-9A-F]{6}$/i.test(input);
-        return COLOR || HEXCODE;
+        name:"textColor",
+        message:"Please enter a color name: ",
+        when:(answer)=> {
+          if(answer.textColorChoice==='Color Names'){
+            return true;
+          }
+          return false;
+        },
+        validate:(answer)=>{
+          let input=answer.toLowerCase();
+          for(var i = 0, arrayLength = lowercaseColours.length;i <arrayLength;i++){
+            if(input.indexOf(lowercaseColours[i])!=-1){
+              return true;
+            }
+          }
+            return console.log("Please enter a valid color name.");
+          }
+      
       },
+      {
+        type: "input",
+        name:"textColor",
+        message:"Please enter a hexadecimal code for your TEXT, such as #000000: ",
+        when:(answer)=>{
+          if(answer.textColorChoice === 'Hexadecimal Codes') {
+            return true;
+        }
+        return false;
     },
+    validate: (answer) => {
+      let isValidHexColor=answer;
+      if (isValidHexColor = /^#[0-9A-F]{6}$/i.test(answer)){
+        return true;        
+      }
+    return console.log("\n Please enter a valid hexadecimal code.")
+        }
 
-  //       when:(answers) => { 
-  //       if(answers.textColor=== 'Color Names') {
-  //       return colours;
-  //     }else {return hexcolours;
-  //     }
-  //   },
-  // },
+      },
       {
         type: "list",
         name: "shape",
@@ -44,21 +77,55 @@ function userInput() {
         choices: ["Triangle", "Square", "Circle"],
         validate: (input) => input.length > 0,
       },
+
       {
-        type: "input",
-        name: "shapeColor",
-        message: "Please enter the COLOR of th SHAPE of your logo, e.g. lightpink or #ffb6c1:",
-        // validate: (input) => {
-        //   // check the input is valid css color name
-        //   const COLOR = colours.includes(input.toLowerCase());
-        //   // check the input to validate hexadecimal code
-        //   const HEXCODE = /^#[0-9A-F]{6}$/i.test(input);
-        //   return COLOR || HEXCODE;
-        // },
+        type: "list",
+        name: "shapeColorFormat",
+        message: "Please choose a color format for the SHAPE you have selected:",
+        choices: ['Color Names','Hexadecimal Codes'], 
       },
+      //validate shapecolorformat
+      {
+        type:'input',
+        name :'shapeColor',
+        message :"Enter the color name to fill in the SHAPE.",
+        when :(answer)=>{
+          if(answer.shapeColorFormat==='Color Names'){
+            return true;
+          }
+          return false;
+      },
+        validate: (answer) => {
+         let input=answer.toLowerCase();
+         for(var i =0, arrayLength=lowercaseColours.length;i<arrayLength;i++){
+          if (input.indexOf(lowercaseColours[i] !=-1)){
+            return true;
+          }
+        }
+        return "Please enter a valid color name";
+          }
+        },
+    {
+      type:'input',
+      name:'shapeColor',
+      message:"Please enter a hexadecimal code for your SHAPE, such as #000000: ",
+    when:(input)=>{
+      if(input.shapeColorFormat === 'Hexadecimal Codes'){
+        return true;
+              }
+              return false;
+    },
+    validate: (input) => {
+      let isValidHexColor=input;
+      if (isValidHexColor = /^#[0-9A-F]{6}$/i.test(input)){
+        return true;        
+      }
+    return console.log("\n Please enter a valid hexadecimal code.")
+    },  
+  },
     ])
     .then((answer) => {
-      if (answer.text.length > 3) {
+      if (answer.text.length !== 3) {
         console.log("Please enter 3 characters Only.");
         userInput();
       } else if (answer.shape.length === 0) {
@@ -70,17 +137,8 @@ function userInput() {
     });
 }
 
-//  function Colors(){
-//   return colours;  }
- 
-// function Hexcodes(){
-//   return hexcolours;
-// }
-
-
-
 function writeToFile(fileName, answer) {
-  //taking from user , 
+  //taking from user ,
   let svgData = "";
   let shapeInput = "";
 
@@ -98,8 +156,8 @@ function writeToFile(fileName, answer) {
     shapeInput = new Circle();
     svgData += `<circle cx="150" cy="115" r="80" fill="${answer.shapeColor}"/>`;
   }
-//the text tag from html 
-  svgData += `<text x="150" y="130" text-anchor="middle" font-="middle" font-size="35" fill="${answer.textColor}">${answer.text}</text>`;
+  //the text tag from html
+  svgData += `<text x="150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="35" fill="${answer.textColor}">${answer.text}</text>`;
   svgData += "</g>";
   svgData += "</svg>";
 
@@ -108,4 +166,4 @@ function writeToFile(fileName, answer) {
   });
 }
 
-userInput();//calling function
+userInput(); //calling function
