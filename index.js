@@ -10,7 +10,7 @@ function userInput() {
         type: "input",
         name: "text",
         message:
-          "Please Enter 3 Characters of the logo you would like to create:",
+          "Please Enter 3 Characters of the logo you would like to create: ",
         validate: (input) => {
           if (input.length == 3) {
             return true;
@@ -24,13 +24,13 @@ function userInput() {
       {
         type: "list",
         name: "textColorChoice",
-        message: "Please choose a color format:",
+        message: "Please choose a color format for the TEXT you have provided: ",
         choices: ["Color Names", "Hexadecimal Codes"],
       },
       {
         type: "input",
         name: "textColor",
-        message: "Please enter a color name: ",
+        message: "Please enter a color for the TEXT you have provided: ",
         when: (answer) => {
           if (answer.textColorChoice === "Color Names") {
             return true;
@@ -48,14 +48,14 @@ function userInput() {
               return true;
             }
           }
-          return console.log("Please enter a valid color name.");
+          return console.log("\n Please enter a valid color name.");
         },
       },
       {
         type: "input",
         name: "textColor",
         message:
-          "Please enter a hexadecimal code for your TEXT, such as #000000: ",
+          "Please enter a hexadecimal code for the TEXT you have provided, e.g #000000: ",
         when: (answer) => {
           if (answer.textColorChoice === "Hexadecimal Codes") {
             return true;
@@ -73,7 +73,7 @@ function userInput() {
       {
         type: "list",
         name: "shape",
-        message: "Please select the SHAPE of your logo:",
+        message: "Please select a SHAPE for your logo:",
         choices: ["Triangle", "Square", "Circle", "Round cornered Square"],
         validate: (input) => input.length > 0,
       },
@@ -89,7 +89,7 @@ function userInput() {
       {
         type: "input",
         name: "shapeColor",
-        message: "Enter the color name to fill in the SHAPE.",
+        message: "Enter a color to fill in the SHAPE.",
         when: (answer) => {
           if (answer.shapeColorFormat === "Color Names") {
             return true;
@@ -107,14 +107,14 @@ function userInput() {
               return true;
             }
           }
-          return "Please enter a valid color name";
+          return "\n Please enter a valid color name.";
         },
       },
       {
         type: "input",
         name: "shapeColor",
         message:
-          "Please enter a hexadecimal code for your SHAPE, such as #000000: ",
+          "Please enter a hexadecimal code to fill the SHAPE, e.g. #000000: ",
         when: (input) => {
           if (input.shapeColorFormat === "Hexadecimal Codes") {
             return true;
@@ -163,6 +163,7 @@ function writeToFile(fileName, answer) {
       break;
     default:
       // Handle unexpected shape input
+      console.log("Please select a shape.");
       break;
   }
 
