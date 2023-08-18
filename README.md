@@ -24,7 +24,7 @@ Before you begin, please make sure you have the following software and tools ins
 
 Node.js and npm (Node Package Manager): You can download and install the 16th version of Node.js:
 
-[the official website](https://nodejs.org/en/blog/release/v16.16.0)
+[the official node website](https://nodejs.org/en/blog/release/v16.16.0)
 
 Clone the Repository either from:
 
@@ -54,11 +54,11 @@ Follow the application prompts provided by the application to enter logo details
 
 Here is a link to a walkthrough video of the logo being generated and running a testing suite:
 
-[Walkthrough Video](https://watch.screencastify.com/v/cRxwOSAOD9cLjGuDIp7e)
+[Walkthrough Video](https://watch.screencastify.com/v/RBQgdlbCh0VZqP0gdFXC)
 
 ## Tests
 
-[1]. Making a green Circle that have white characters "SVG"
+[1]. Making a green Circle that has white characters "SVG"
 
 ![Logo Shape: Circle](examples/circleSVG.png)
 
