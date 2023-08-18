@@ -46,13 +46,13 @@ node index.js
 
 This will start the application, and you'll be prompted to provide inputs for creating a logo.
 
-Follow application prompts provided by the application to enter logo details, such as characters, its colors, and the shapes. After completing the prompts, the application will generate an SVG logo file named logo.svg in the project directory.
+Follow the application prompts provided by the application to enter logo details, such as characters, colors, and shapes. After completing the prompts, the application will generate an SVG logo file named logo.svg in the project directory.
 
 ## Usage
 
 ### Walkthrough Video
 
-Here is a link to a walkthrough video of the a logo being generated and running a testing suite:
+Here is a link to a walkthrough video of the logo being generated and running a testing suite:
 
 [Walkthrough Video](https://watch.screencastify.com/v/cRxwOSAOD9cLjGuDIp7e)
 
@@ -70,9 +70,9 @@ Here is a link to a walkthrough video of the a logo being generated and running 
 
 ![Logo shape: Square with Border Radius](examples/example-1.png)
 
-[4]. Making a White Triangle that has the characters "pin" in green color
+[4]. Making a Triangle using hexadecimal code from hexcolours array, it has the characters "POP"
 
-![Logo shape: Triangle](examples/example-2.png)
+![Logo shape: Triangle](examples/madeusingHexCode.png)
 
 [5]. Testing shapes.test.js by running the command npx jest
 
