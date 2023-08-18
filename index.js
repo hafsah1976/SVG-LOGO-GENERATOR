@@ -89,7 +89,7 @@ function userInput() {
       {
         type: "input",
         name: "shapeColor",
-        message: "Enter a color to fill in the SHAPE.",
+        message: "Enter a color to fill in the SHAPE: ",
         when: (answer) => {
           if (answer.shapeColorFormat === "Color Names") {
             return true;
@@ -137,7 +137,7 @@ function userInput() {
 
 function writeToFile(fileName, answer) {
   // Taking from user
-  let svgData = ""; //from the user input, data is accumalated in this variable as a string
+  let svgData = ""; //from the user input, data is accumulated in this variable as a string
   let shapeInput = "";
 
   svgData = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
