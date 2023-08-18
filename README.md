@@ -70,7 +70,7 @@ Here is a link to a walkthrough video of the logo being generated and running a 
 
 ![Logo shape: Square with Border Radius](examples/example-1.png)
 
-[4]. Making a Triangle using hexadecimal code from hexcolours array, it has the characters "POP"
+[4]. Making a Triangle using hexadecimal code from hexcolours array in the lib folder, it has the characters "POP"
 
 ![Logo shape: Triangle](examples/madeusingHexCode.png)
 
